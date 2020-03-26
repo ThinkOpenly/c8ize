@@ -38,7 +38,7 @@ if [ "$instructions" = "" ]; then
 	echo "Defaulting to 1000000 instructions"
 	instructions=1000000
 fi
-valgrind --tool=itrace --trace-extent=all --binary-outfile="$PID".vgi --demangle=no $@
+valgrind --tool=itrace --trace-extent=all --trace-children=yes --binary-outfile="$PID".vgi --demangle=no $@
 vgi2qt -f "$PID".vgi -o "$PID".qt
 /opt/ibm/sim_ppc/sim_p9/bin/run_timer "$PID".qt "$instructions" 10000 1 "$PID" -scroll_pipe 1 -scroll_begin 1 -scroll_end "$instructions"
 
