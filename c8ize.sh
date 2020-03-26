@@ -31,7 +31,7 @@ rm -f "$PID".perfmetrics
 perf stat -e instructions --no-big-num --field-separator=: -o "$PID".instructions $@
 instructions=$(tail -1 "$PID".instructions | cut -f1 -d:)
 rm -f "$PID".instructions
-valgrind --tool=itrace --binary-outfile="$PID".vgi --demangle=no $@
+valgrind --tool=itrace --trace-extent=all --binary-outfile="$PID".vgi --demangle=no $@
 vgi2qt -f "$PID".vgi -o "$PID".qt
 /opt/ibm/sim_ppc/sim_p9/bin/run_timer "$PID".qt "$instructions" 10000 1 "$PID" -scroll_pipe 1 -scroll_begin 1 -scroll_end "$instructions"
 
